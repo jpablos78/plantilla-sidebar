@@ -81,40 +81,8 @@ export class LoginComponent implements OnInit {
 
     this.displayWait = true;
 
-    //this.router.navigate(['/home']);
-
-    this.loginService.login(postData).subscribe(
-      {
-        next: data => {
-          alert('xxx');
-          this.displayWait = false;
-
-          this.router.navigate(['/home']);
-        },
-        error: error => {
-          this.displayWait = false;
-          this.messageService.clear();
-          this.messageService.add({ key: 'c', sticky: true, severity: 'error', summary: 'Mensaje del Sistema', detail: error, closable: false });
-        },
-        complete: ()=> {
-          alert('complete');
-        }
-      }
-    )
-
-    // this.loginService.login(postData).subscribe(
-    //   data => {
-    //     alert('xxx');
-    //     this.displayWait = false;
-
-    //     this.router.navigate(['/home']);
-    //   },
-    //   error => {
-    //     this.displayWait = false;
-    //     this.messageService.clear();
-    //     this.messageService.add({ key: 'c', sticky: true, severity: 'error', summary: 'Mensaje del Sistema', detail: error, closable: false });
-    //   }
-    // );
+    this.loginService.login(postData);
+    this.router.navigate(['/home']);
   }
 
   setFocus(elm: HTMLInputElement) {

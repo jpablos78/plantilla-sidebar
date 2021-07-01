@@ -13,6 +13,8 @@ import { PrimeNGModule } from './png';
 
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { HeaderComponent } from './components/main/header/header.component';
+import { SidebarComponent } from './components/main/sidebar/sidebar.component';
 
 import { LoginService } from './services/login/login.service';
 
@@ -29,7 +31,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    SidebarComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

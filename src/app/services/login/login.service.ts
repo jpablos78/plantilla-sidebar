@@ -35,22 +35,29 @@ export class LoginService {
     return this._loggedIn.asObservable();
   }
 
-  login(postData: FormData): Observable<any> {
-    return this.http.post<any>(this.url, postData)
-      .pipe(
-        map(res => {
-          if (res.success) {
-            if (res.ok === 'S') {
-              this._loggedIn.next(true);
-              
-              return true;
-            } else {
-              throw (res.mensaje);
-            }
-          } else {
-            throw (res.mensaje);
-          }
-        })        
-      )
+  login(postData: FormData) {
+    this._loggedIn.next(true);
+    return true;
   }
+
+  // login(postData: FormData): Observable<any> {
+  //   return this.http.post<any>(this.url, postData)
+  //     .pipe(
+  //       map(res => {
+  //         this._loggedIn.next(true);
+  //         return true;
+  //         // if (res.success) {
+  //         //   if (res.ok === 'S') {
+  //         //     this._loggedIn.next(true);
+
+  //         //     return true;
+  //         //   } else {
+  //         //     throw (res.mensaje);
+  //         //   }
+  //         // } else {
+  //         //   throw (res.mensaje);
+  //         // }
+  //       })        
+  //     )
+  // }
 }
