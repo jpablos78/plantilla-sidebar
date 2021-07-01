@@ -1,0 +1,16 @@
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <p-button icon="fa fa-bars" (click)="toggleSidebar()"></p-button>
+    </div>
+
+    <img src="assets/images/logoEmpresa.png" width="225">
+
+    <div class="p-toolbar-group-right">        
+        <p-button icon="fa fa-power-off size-icon" styleClass="p-button-rounded p-button-danger"
+            (click)="onClickBtnSalir()"></p-button>
+    </div>    
+</p-toolbar>
+
+<p-confirmDialog header="Confirmation" [position]="'top'" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<app-mensaje-procesando [(displayWait)]="displayWait"></app-mensaje-procesando>

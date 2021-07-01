@@ -1,0 +1,236 @@
+<nav id="sidebar" class="sidebar" [ngClass]="{'sidebar-bg' : hasBackgroundImage()}">
+  <div class="sidebar-content">
+    <perfect-scrollbar>
+      <div class="sidebar-header">
+        <a style="font-size: 0.87rem;">Gestión de Documentos Electrónicos</a>
+      </div>
+
+      <div class="sidebar-profile">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded" [src]="rutaImagen" alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name" style="font-size: 0.87rem;">
+            <strong>{{nombres}}</strong>
+          </span>
+          <span class="user-role">{{perfil}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <!-- <div class="sidebar-search">
+        <div>
+          <div class="input-group">
+            <input type="text" class="form-control search-menu" placeholder="Search...">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="sidebar-menu">
+        <ul style="font-size: 1.1rem;">
+          <li *ngFor="let menu of menus"
+            [ngClass]="{'active': menu.active , 'sidebar-dropdown':menu.type === 'dropdown' , 'header-menu':menu.type === 'header'}">
+            <span *ngIf="menu.type === 'header'">{{menu.title}}</span>
+
+            <!-- <a [routerLink]="[menu.ruta, menu.id_menu]" class="nav-link" data-toggle="collapse"
+            data-target=".navbar-collapse.show"><i [class]="menu.icono"></i>
+            <span>
+                {{ menu.nombre_menu }}
+            </span>
+        </a> -->
+
+
+            <a [routerLink]="[menu.ruta, menu.id_menu]" *ngIf="menu.type === 'simple'" (click)='toggle(menu)'
+              style="width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+              [pTooltip]="menu.title" tooltipPosition="left">
+              <i class="{{menu.icon}}"></i>
+              <span>{{menu.title}}</span>
+            </a>
+            <a *ngIf="menu.type === 'dropdown'" (click)='toggle(menu)'
+              style="width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              <i [class]="menu.icon"></i>
+              <span>{{menu.title}}</span>
+            </a>
+            <div *ngIf="menu.type === 'dropdown'" class="sidebar-submenu" [@slide]="getState(menu)">
+              <ul>
+                <li *ngFor="let submenu of menu.submenus">
+                  <a [routerLink]="[submenu.ruta, submenu.id_menu]"
+                    style="width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px; padding-left: 3px;"
+                    [pTooltip]="submenu.title" tooltipPosition="left">
+                    <i [class]="submenu.icon"></i>
+                    {{submenu.title}}
+                    <span *ngIf="submenu.badge" class="badge badge-pill"
+                      [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </perfect-scrollbar>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="dropdown" dropdown [dropup]="isDropup">
+      <a dropdownToggle pTooltip="Favoritos" tooltipPosition="top">
+        <i class="fa fa-star size-icon text-warning border-warning"></i>
+      </a>
+      <div class="dropdown-menu notifications" *dropdownMenu>
+        <div class="notifications-header">
+          <i class="fa fa-star"></i>
+          Menu Favoritos
+        </div>
+        <div class="dropdown-divider"></div>
+        <ng-container *ngFor="let menu of iMenuFavoritos$ | async as iMenuFavoritos">
+          <a class="dropdown-item" [routerLink]="[menu.ruta, menu.id_menu]">
+            <div class="notification-content">
+              <div class="icon">
+                <i [class]="menu.icono + ' text-success border border-success'"></i>
+              </div>
+              <div class="content">
+                <div class="notification-detail">{{ menu.nombre_menu }}</div>
+              </div>
+            </div>
+          </a>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- <div class="dropdown" dropdown [dropup]="isDropup">
+      <a dropdownToggle>
+        <i class="fa fa-star size-icon"></i>
+      </a>
+      <div class="dropdown-menu notifications" *dropdownMenu>
+        <div class="notifications-header">
+          <i class="fa fa-star"></i>
+          Menu Favoritos
+        </div>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="">
+          <div class="notification-content">
+            <div class="icon">
+              <i class="fa fa-file-text text-success border border-success"></i>
+            </div>
+            <div class="content">
+              <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. In totam explicabo</div>
+            </div>
+          </div>
+        </a>
+        <a class="dropdown-item" href="">
+          <div class="notification-content">
+            <div class="icon">
+              <i class="fas fa-exclamation text-info border border-info"></i>
+            </div>
+            <div class="content">
+              <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. In totam explicabo</div>
+              <div class="notification-time">
+                Today
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="dropdown-item" href="">
+          <div class="notification-content">
+            <div class="icon">
+              <i class="fas fa-exclamation-triangle text-warning border border-warning"></i>
+            </div>
+            <div class="content">
+              <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. In totam explicabo</div>
+              <div class="notification-time">
+                Yesterday
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div> -->
+    <!-- <div class="dropdown" dropdown [dropup]="isDropup">
+      <a dropdownToggle>
+        <i class="fa fa-envelope size-icon"></i>
+        <span class="badge badge-pill badge-success notification">7</span>
+      </a>
+      <div class="dropdown-menu messages" *dropdownMenu>
+        <div class="messages-header">
+          <i class="fa fa-envelope"></i>
+          Messages
+        </div>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="">
+          <div class="message-content">
+            <div class="pic">
+              <img src="assets/img/user.jpg" alt="">
+            </div>
+            <div class="content">
+              <div class="message-title">
+                <strong> Jhon doe</strong>
+              </div>
+              <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. In totam explicabo</div>
+            </div>
+          </div>
+
+        </a>
+        <a class="dropdown-item" href="">
+          <div class="message-content">
+            <div class="pic">
+              <img src="assets/img/user.jpg" alt="">
+            </div>
+            <div class="content">
+              <div class="message-title">
+                <strong> Jhon doe</strong>
+              </div>
+              <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. In totam explicabo</div>
+            </div>
+          </div>
+
+        </a>
+        <a class="dropdown-item" href="">
+          <div class="message-content">
+            <div class="pic">
+              <img src="assets/img/user.jpg" alt="">
+            </div>
+            <div class="content">
+              <div class="message-title">
+                <strong> Jhon doe</strong>
+              </div>
+              <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. In totam explicabo</div>
+            </div>
+          </div>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item text-center" href="">View all messages</a>
+
+      </div>
+    </div> -->
+    <!-- <div class="dropdown" dropdown [dropup]="isDropup">
+      <a dropdownToggle>
+        <i class="fa fa-cog size-icon"></i>
+        <span class="badge-sonar"></span>
+      </a>
+      <div class="dropdown-menu" *dropdownMenu>
+        <a class="dropdown-item" href="">My profile</a>
+        <a class="dropdown-item" href="">Help</a>
+        <a class="dropdown-item" href="">Setting</a>
+      </div>
+    </div> -->
+    <div>
+      <!-- <button pButton pRipple type="button" icon="fa fa-power-off size-icon"
+        class="p-button-rounded p-button-danger"></button> -->
+      <a pTooltip="Salir" tooltipPosition="top" (click)="onClickBtnSalir()">
+        <i class="fa fa-power-off size-icon text-danger border-danger"></i>
+      </a>
+    </div>
+  </div>
+</nav>

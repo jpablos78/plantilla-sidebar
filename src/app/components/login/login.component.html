@@ -1,0 +1,43 @@
+<div class="qo-panel">
+    <div class="component-style">
+        <p-panel header="Login">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="p-float-label" style="margin-top:12px">
+                    <input id="txtUsuario" type="text" class="p-inputtext-sm" size="30" maxlength="50" pInputText
+                        formControlName="txtUsuario" autocomplete="off" (keydown)="onKeydown($event)"
+                        (blur)="onBlur($event)" #txtUsuario>
+                    <label for="txtUsuario">Usuario</label>
+                </div>
+                <div style="margin-top:5px">
+                    <!-- <p-message severity="error" [text]="getMensajeError(f.txtUsuario)"
+                        *ngIf="form.controls['txtUsuario'].invalid&&form.controls['txtUsuario'].dirty"
+                        style="font-weight: bold;">
+                    </p-message> -->
+                </div>
+
+                <div class="p-float-label" style="margin-top:27px">
+                    <input id="txtClave" type="password" class="p-inputtext-sm" size="30" maxlength="50" pInputText
+                        formControlName="txtClave" (keydown)="onKeydown($event)" (blur)="onBlur($event)" #txtClave>
+                    <label for="txtClave">Password</label>
+                </div>
+                <div style="margin-top:5px">
+                    <!-- <p-message severity="error" [text]="getMensajeError(f.txtClave)"
+                        *ngIf="form.controls['txtClave'].invalid&&form.controls['txtClave'].dirty"
+                        style="font-weight: bold;">
+                    </p-message> -->
+                </div>
+
+                <div style="margin-top:15px">
+                    <p-checkbox formControlName="chkRecordar" label="Recordar sesión" binary="true"></p-checkbox>
+                </div>
+
+                <div style="margin-top:15px">
+                    <button pButton type="submit" label="Aceptar" [disabled]="!form.valid" style="width: 100%;"
+                        #btnSave></button>
+                </div>
+            </form>
+        </p-panel>
+    </div>
+</div>
+
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

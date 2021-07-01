@@ -1,0 +1,56 @@
+/*.qo-panel {
+  background: transparent url("./../../../assets//images/bg-panel.jpg") no-repeat;
+  height: 100%;
+  left: 50%;
+  margin-left: -404px;
+  margin-top: -260px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}*/
+
+.component-style {
+  width: 100%;
+  /*position: absolute;*/
+  /*margin-top:10px;*/
+}
+
+@media screen and (min-width: 768px) {
+  .component-style {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 120px;
+  }
+
+  .qo-panel {
+    background: transparent url("./../../../assets/images/bg-panel.jpg")
+      no-repeat;
+    height: 521px;
+    left: 50%;
+    margin-left: -404px;
+    /*margin-top: -260px;*/
+    position: absolute;
+    /*top: 50%;*/
+    width: 808px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .component-style {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 150px;
+  }
+
+  .qo-panel {
+    background: transparent url("./../../../assets//images/bg-panel.jpg")
+      no-repeat;
+    height: 521px;
+    left: 50%;
+    margin-left: -404px;
+    margin-top: -260px;
+    position: absolute;
+    top: 50%;
+    width: 808px;
+  }
+}
